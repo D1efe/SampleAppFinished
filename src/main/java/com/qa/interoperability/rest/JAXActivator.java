@@ -1,4 +1,4 @@
-package com.qa.interoperability;
+package com.qa.interoperability.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

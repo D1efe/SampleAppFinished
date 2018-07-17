@@ -1,4 +1,4 @@
-package com.qa.business.service;
+package com.qa.interoperability.soap;
 
 import javax.inject.Inject;
 import javax.jws.WebService;
@@ -7,8 +7,10 @@ import org.apache.log4j.Logger;
 
 import com.qa.persistence.repo.IAccountRepository;
 
+@WebService(serviceName = "SampleAccountService", portName = "sampleaccount", name = "SampleAccount", endpointInterface = "org.jboss.as.quickstarts.wshelloworld.HelloWorldService",
+targetNamespace = "http://www.wildfly.org/quickstarts/wshelloworld/HelloWorld")
 public class AccountService implements IAccountService {
-	
+
 	private static final Logger LOGGERSERV = Logger.getLogger(AccountService.class);
 
 	@Inject

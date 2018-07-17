@@ -9,6 +9,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
+
 import com.qa.persistence.domain.Account;
 import com.qa.persistence.domain.Transaction;
 import com.qa.util.JSONUtil;
@@ -23,18 +25,24 @@ public class AccountMapRepository implements IAccountRepository {
 
 	@Inject
 	private JSONUtil util;
+	
+	@Inject
+	private static final Logger LOGGERMAPREPO = Logger.getLogger(AccountMapRepository.class);
 
 	public AccountMapRepository() {
+		LOGGERMAPREPO.info("in AccountMapRepository method constrctor");
 		this.accountMap = new HashMap<Long, Account>();
 		ID = INITIAL_COUNT;
 		initAccountMap();
 	}
 
 	public String getAllAccounts() {
-		return util.getJSONForObject(accountMap.values());
+		LOGGERMAPREPO.info("in AccountMapRepository method getAllAccounts");
+		return util.getJSONForObject(accountMap.size());
 	}
 
 	public String createAccount(String account) {
+		LOGGERMAPREPO.info("in AccountMapRepository method createAccount");
 		ID++;
 		Account newAccount = util.getObjectForJSON(account, Account.class);
 		accountMap.put(ID, newAccount);
@@ -42,17 +50,20 @@ public class AccountMapRepository implements IAccountRepository {
 	}
 
 	public String updateAccount(Long id, String accountToUpdate) {
+		LOGGERMAPREPO.info("in AccountMapRepository method updateAccount");
 		Account newAccount = util.getObjectForJSON(accountToUpdate, Account.class);
 		accountMap.put(id, newAccount);
 		return accountToUpdate;
 	}
 
 	public String deleteAccount(Long id) {
+		LOGGERMAPREPO.info("in AccountMapRepository method deleteAccount");
 		accountMap.remove(id);
 		return "{\"message\": \"accout sucessfully removed\"}";
 	}
 
 	private void initAccountMap() {
+		LOGGERMAPREPO.info("in AccountMapRepository method initAccountMap");
 		Transaction transaction = new Transaction("sample");
 		transaction.setId(1L);
 		List<Transaction> transactions = new ArrayList<>();
